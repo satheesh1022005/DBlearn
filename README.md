@@ -46,7 +46,7 @@ A hands-on environment where students can practice queries, work on assignments,
 ### End-to-End Capstone Project Support
 A guided project workflow, from requirements to ER diagrams, OOP fundamentals, and mock interviews, prepares students for practical SQL implementation in the real world.
 
-![My Image](images/sql.png)
+![My Image](sql.png)
 
 ---
 AI chatbot
