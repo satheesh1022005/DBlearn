@@ -12,19 +12,20 @@ CORS(app)
 def get_agent_for_type(bot_type):
     if bot_type == 'NLPtoSQL':
         return Agent(
-            role = 'SQL Query Generator Assistant',
-            goal = 'Generate a SQL query based on the user\'s input.',
-            backstory = 'You are an assistant capable of generating SQL queries based on natural language queries. You understand SQL syntax and structure.',
-            verbose = False,
-            llm = ChatGoogleGenerativeAI(
-                model="gemini-pro", verbose=True, temperature=0.1, google_api_key=api_key
-            )
+                role = 'NLP to SQL converter',
+        goal = 'Generate Natural language to sql queries from the given input',
+        backstory = 'You are a Database Engineer who is well versed in understanding natural languages and converting them into SQL queries.',
+        verbose =False,
+        llm = ChatGoogleGenerativeAI(
+            model="gemini-pro",verbose=True,temperature=0.1, google_api_key=api_key
+        )
         )
     elif bot_type == 'doubt_clarification':
+        print("hello")
         return Agent(
             role = 'Doubt Clarification Assistant',
-            goal = 'Clarify user doubts related to SQL, answer queries, and provide explanations.',
-            backstory = 'You are a knowledgeable assistant who can help clarify doubts related to SQL, its syntax, and queries.',
+            goal = 'Clarify user doubts related to SQL and DBMS, answer queries, and provide explanations.',
+            backstory = 'You are a knowledgeable assistant who can help clarify doubts related to SQL and dbms',
             verbose = False,
             llm = ChatGoogleGenerativeAI(
                 model="gemini-pro", verbose=True, temperature=0.1, google_api_key=api_key
@@ -56,10 +57,13 @@ def process_input():
         
         # Initialize the agent dynamically based on the bot type
         agent = get_agent_for_type(bot_type)
-
-        # Create the task for the agent
+        nlp2sqlDescription=f"generate a answer based on the input from the user and make sure the data is accurate and only taken from the given context txt file,, here's the query : {query}"
+        if bot_type == 'NLPtoSQL':
+            nlp2sqlDescription=f"generate SQL query based on the input from the user and make sure the query is accurate, here's the query : {query}"
+        # Create the task for the agent\
+        print(nlp2sqlDescription)
         nlp_task = Task(
-            description=f"Generate a response based on the user query: {query}",
+            description=nlp2sqlDescription,
             agent=agent,
             expected_output="Generated response in simple English language"
         )
@@ -85,4 +89,4 @@ def process_input():
 
 
 if __name__ == '__main__':
-    app.run(debug=True,port=3000)
+    app.run(debug=True,port=5000)

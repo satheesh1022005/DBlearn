@@ -22,6 +22,7 @@ import NLPtoSQLBot from "./components/bot/Nlp2Sql";
 import Project from "./page/Project";
 import Contest from "./components/contest/Contest";
 import QueryOptimizationBot from "./components/bot/QueryOptimizationBot";
+import ErDiagramFetcher from "./components/Autonomous/ErDiagramFetcher";
 function App() {
   return (
     <>
@@ -47,6 +48,7 @@ function App() {
           <Route path="/project" element={<Project />} />
           <Route path="/contestList" element={<Contest />} />
           <Route path="/optimize" element={<QueryOptimizationBot />} />
+          <Route path="/er" element={<ErDiagramFetcher />} />
         </Routes>
       </Router>
     </>
