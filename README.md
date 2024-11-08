@@ -11,7 +11,9 @@ Start by cloning the repository to your local machine:
 - npm install
 - npm run dev
 
-##demo for frountend https://verbose-spork-r99rvp9rg9wcxr96-5173.app.github.dev/
+demo for frountend https://verbose-spork-r99rvp9rg9wcxr96-5173.app.github.dev/
+
+The backend for horizontal scaling is running on three Engenius servers to support the system.
 
 
 ## Introduction
