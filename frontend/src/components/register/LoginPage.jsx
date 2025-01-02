@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./LoginPage.css";
 import { handleLoginSerive } from "./registerService";
 import { toast } from "react-toastify";
-
+import loginimage from "../../assets/login.png";
 function LoginPage() {
   const navigate = useNavigate();
   const [login, setLogin] = useState({
@@ -18,11 +18,14 @@ function LoginPage() {
       toast("Invalid Credentials", { type: "error", autoClose: 2000 });
     } else {
       toast("Login Successfull", { type: "success", autoClose: 2000 });
-      navigate("/");
+      navigate("/landing");
     }
     console.log(resStatus);
   };
   return (
+    <>
+      <main className=" d-flex">
+      <div className="login-image-container"><img src={loginimage} alt="" className={"login-image"}/></div>
     <div className="container d-flex justify-content-center align-items-center login-page">
       <div className="card p-4 px-5 shadow-lg login-card">
         <h2 className="text-center mb-4">Login</h2>
@@ -68,6 +71,8 @@ function LoginPage() {
         </form>
       </div>
     </div>
+      </main>
+    </>
   );
 }
 

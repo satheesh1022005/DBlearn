@@ -18,6 +18,11 @@ const StudentRegister = () => {
     e.preventDefault();
     console.log('Form data submitted:', formData);
     handleStudentRegistration(formData);
+    setFormData({
+      username: '',
+      email: '',
+      password: '',
+    })
   };
 
   return (
@@ -34,7 +39,7 @@ const StudentRegister = () => {
                   id="username"
                   name="username"
                   className="form-control"
-                  value={formData.name}
+                  value={formData.username}
                   onChange={handleChange}
                   placeholder="Enter student name"
                 />

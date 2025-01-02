@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./DiscussionForm.css";
 import {
   IconButton,
   Card,
@@ -8,7 +9,7 @@ import {
   Typography,
   Button,
   TextField,
-  Dialog,
+  Dialog, 
   DialogActions,
   DialogContent,
   DialogTitle,
@@ -165,20 +166,26 @@ const DiscussionForum = () => {
 
       {/* List of Question Slides */}
       <div
-        className="questions-list"
+        className="questions-list  "
         style={{ display: "flex", flexDirection: "column", overflowX: "auto" }}
       >
         {questions.map((question) => (
+          <>
           <Card
             key={question._id}
-            style={{ minWidth: "300px", margin: "10px" }}
+            style={{ minWidth: "300px", margin: "0px" }}
+            className="question-card bg-light"
           >
+            <div className="w-100 ">
             <CardContent>
               <Typography variant="h6">{question.question.title}</Typography>
               <Typography variant="body2" color="textSecondary">
                 {question.question.content}
+                {console.log(question.question.answer)}
               </Typography>
             </CardContent>
+            </div>
+            <div className="discussion-question  w-100">
             <CardActions>
               <IconButton
                 onClick={() =>
@@ -198,7 +205,14 @@ const DiscussionForum = () => {
                 <CommentIcon />
               </IconButton>
             </CardActions>
+            </div>
           </Card>
+          {/* <div>
+          {question.question.answers?.map((answer) => (
+            <div className="discussion-answer">|- {answer.content}</div>
+          ))}
+        </div> */}
+        </>
         ))}
       </div>
 

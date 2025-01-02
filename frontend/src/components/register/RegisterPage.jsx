@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 import { handleRegistration } from './registerService';
 import { toast } from 'react-toastify';
+import loginimage from "../../assets/login.png";
 
 function RegisterPage() {
     const navigate=useNavigate();
@@ -24,11 +25,13 @@ function RegisterPage() {
         }
         else{
             toast("Register Succesfully",{type:'success',autoClose: 2000,})
-            navigate('/login')
+            navigate('/')
         }
         console.log(resStatus)
     }
     return (
+        <div className=" d-flex">
+        <div className='login-image-container'><img src={loginimage} alt="" className={"login-image"}/></div>
         <div className="container d-flex justify-content-center align-items-center register-page">
             <div className="card p-4 px-5 shadow-lg register-card">
                 <h2 className="text-center mb-4">Register</h2>
@@ -51,10 +54,11 @@ function RegisterPage() {
                     </div>
                     <button type="submit" className="btn btn-primary py-2 w-100" onClick={handleRegister}>Register</button>
                     <div className="text-center mt-3">
-                        Already have an account? <Link to="/login">Login here</Link>
+                        Already have an account? <Link to="/">Login here</Link>
                     </div>
                 </form>
             </div>
+        </div>
         </div>
     );
 }

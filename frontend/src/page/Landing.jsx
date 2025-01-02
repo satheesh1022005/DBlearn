@@ -1,14 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Landing.css";
 import { Link, useNavigate } from "react-router-dom";
 import DoubtClarificationBot from "../components/bot/DoubtClarificationBot";
 import bot from "../assets/bot.webp";
 import Home from "../components/home/Home";
 import chat from "../assets/chat.png";
+import axios from "axios";
 function Landing() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [showBot, setShowBot] = useState(false); // State to control bot visibility
+  const [search, setSearch] = useState('');
   const navigate = useNavigate();
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const user = await axios.get("http://localhost:3000/api/me", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        localStorage.setItem('faculty', JSON.stringify(user));
+        localStorage.setItem('college', JSON.stringify(user.data));
+        console.log(user.data.user)
+        if (user?.user?.data)
+          localStorage.setItem('user', JSON.stringify(user?.user?.data));
+        setUser(user?.user?.data);
+        setUser(user?.data?.user)
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
   const toggleBot = () => {
     setShowBot(!showBot);
   };
@@ -23,70 +48,64 @@ function Landing() {
             </div>
             <ul>
               <li>
-                <Link to="/">
-                  <a>Dashboard</a>
+                <Link to="/landing">
+                  <div>Dashboard</div>
                 </Link>
               </li>
               <li>
                 <Link to="/view">
-                  <a>Courses</a>
+                  <div>Courses</div>
                 </Link>
               </li>
               <li>
                 <Link to="/contestList">
-                  <a>Contest</a>
+                  <div>Contest</div>
                 </Link>
               </li>
               <li>
-                <Link to="/contestList">
-                  <a>Labs</a>
-                </Link>
-              </li>
-              <li>
-                <Link to="/nlp2sql">
-                  <a>NLP2SQL</a>
-                </Link>
-              </li>
-              <li>
-                <Link to="/optimize">
-                  <a>query optimization</a>
+                <Link to="/lab">
+                  <div>Labs</div>
                 </Link>
               </li>
               <li>
                 <Link to="/playground">
-                  <a>Playground</a>
+                  <div>Playground</div>
                 </Link>
               </li>
               <li>
                 <Link to="/sheet">
-                  <a>SQL sheet</a>
+                  <div>SQL sheet</div>
+                </Link>
+              </li>
+              <li>
+                <Link to="/discussion">
+                  <div>Discussion</div>
                 </Link>
               </li>
               <li>
                 <Link to="/project">
-                  <a>Project</a>
-                </Link>
-              </li>
-              <li>
-                <Link to="/AIinterview">
-                  <a>Interview AI</a>
+                  <div>Project</div>
                 </Link>
               </li>
             </ul>
           </div>
           <div className="main">
             <div className="header">
-              <input type="text" placeholder="Search" />
+              <input type="text" placeholder="Search"
+               onChange={(e)=>setSearch(e.target.value)}
+               onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  localStorage.setItem("search", search);
+                  navigate("/contestList");
+                }
+              }} />
               <div className="header-right">
-                <a href="#">
-                  <i className="fas fa-bell"></i>
-                </a>
-                <a href="#">
-                  <i className="fas fa-shopping-cart"></i>
-                </a>
                 <div className="dropdown">
-                  <a href="#" className="dropdown-toggle">
-                    {user.name} <i className="fas fa-angle-down"></i>
+                  <a href="/profile" className="dropdown-toggle">
+                    Profile {user?.name}
+                  </a>
+                  <a href="/" className="text-danger fw-bold">
+                    Logout
                   </a>
                 </div>
               </div>
@@ -100,37 +119,33 @@ function Landing() {
                   </div>
                 </div>
                 <div className="user-profile">
-                  <div className="user-image"></div>
+                  <div className="user-image">{user?.name[0]?.toUpperCase()}</div>
                   <div className="user-info">
-                    <div className="user-name">{user.name}</div>
-                    <div className="user-email">{user.email}</div>
+                    <div className="user-name"><span>Name :</span> {user?.name}</div>
+                    <div className="user-email"><span>Email :</span> {user?.email}</div>
                     <div className="user-details">
-                      <div>Course: SQL Learning</div>
+                      <div><span>Course :</span> SQL Learning</div>
                     </div>
                   </div>
                 </div>
                 <div className="stats">
                   <div className="stat-item">
                     <div className="stat-title">Total Courses</div>
-                    <div className="stat-value">5</div>
+                    <div className="stat-value">{user?.progress.length}</div>
                   </div>
                   <div className="stat-item">
                     <div className="stat-title">Completed</div>
-                    <div className="stat-value">3</div>
+                    <div className="stat-value">{user?.progress.filter((item) => item.status === "completed").length}</div>
                   </div>
                   <div className="stat-item">
                     <div className="stat-title">In Progress</div>
-                    <div className="stat-value">2</div>
+                    <div className="stat-value">{user?.progress.filter((item) => item.status === "pending").length}</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Bot Icon Button */}
-          <div className="doubt-icon" onClick={() => navigate("/discussion")}>
-            <img src={chat} alt="bot" width="75px" height="75px" />
-          </div>
           <div className="bot-icon" onClick={toggleBot}>
             {!showBot && <img src={bot} alt="bot" width="75px" height="75px" />}
           </div>

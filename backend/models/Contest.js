@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const ContestSchema = new mongoose.Schema({
+  type:{type:String},
   contestName: { type: String, required: true },
   description: { type: String, required: true },
   challenges: { type: String },

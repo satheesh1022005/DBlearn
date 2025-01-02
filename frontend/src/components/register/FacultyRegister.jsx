@@ -19,6 +19,12 @@ const FacultyRegister = () => {
     e.preventDefault();
     console.log('Form data submitted:', formData);
     const status=handleFacultyRegistration(formData);
+    setFormData({
+      username: '',
+      email: '',
+      password: '',
+      maxStudentAccounts: 0,
+    })
   };
 
   return (
@@ -35,7 +41,7 @@ const FacultyRegister = () => {
                   id="username"
                   name="username"
                   className="form-control"
-                  value={formData.name}
+                  value={formData.username}
                   onChange={handleChange}
                   placeholder="Enter faculty name"
                 />

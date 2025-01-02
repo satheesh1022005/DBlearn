@@ -5,10 +5,11 @@ const { auth } = require("../middleware/authMiddleware");
 const Faculty = require("../models/Faculty");
 router.post("/create", auth, async (req, res) => {
   try {
-    const { contestName, description, startTime, endTime } = req.body;
+    const { contestName, description, startTime, endTime,type } = req.body;
 
     // Create a new contest
     const newContest = new Contest({
+      type,
       contestName,
       description,
       startTime,
@@ -22,6 +23,7 @@ router.post("/create", auth, async (req, res) => {
     faculty.contest.push({
       id: newContest._id,
       name: contestName,
+      type:type,
       description,
     });
 

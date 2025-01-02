@@ -26,7 +26,7 @@ const ContestForm = () => {
       const token = localStorage.getItem("token");
       const response = await axios.post(
         "http://localhost:3000/api/contest/create",
-        contestData,
+        { ...contestData,type:'contest'},
         {
           headers: {
             Authorization: `Bearer ${token}`,

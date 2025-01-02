@@ -21,16 +21,21 @@ import Landing from "./page/Landing";
 import NLPtoSQLBot from "./components/bot/Nlp2Sql";
 import Project from "./page/Project";
 import Contest from "./components/contest/Contest";
-import QueryOptimizationBot from "./components/bot/QueryOptimizationBot";
+import Lab from "./components/Lab/Contest";
+import LabForm from "./components/Lab/ContestForm";
 import ErDiagramFetcher from "./components/Autonomous/ErDiagramFetcher";
+import StudentProfile from "./components/profile/StudentProfile";
+import StudentForm from "./components/profile/StudentForm";
+import StudentFacult from "./components/home/StudentFacult";
+import StudentList from "./components/home/FacultyPage";
 function App() {
   return (
     <>
       <ToastContainer />
       <Router>
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/landing" element={<Landing />} />
+          <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/createFaculty" element={<FacultyRegister />} />
           <Route path="/createStudent" element={<StudentRegister />} />
@@ -47,8 +52,13 @@ function App() {
           <Route path="/nlp2sql" element={<NLPtoSQLBot />} />
           <Route path="/project" element={<Project />} />
           <Route path="/contestList" element={<Contest />} />
-          <Route path="/optimize" element={<QueryOptimizationBot />} />
           <Route path="/er" element={<ErDiagramFetcher />} />
+          <Route path="/lab" element={<Lab/>}/>
+          <Route path="/create/lab" element={<LabForm/>}/>
+          <Route path="/profile" element={<StudentProfile/>}/>
+          <Route path="/create/profile" element={<StudentForm/>}/>
+          <Route path="/student/profile/:id" element={<StudentFacult />} />
+          <Route path="/faculty/:id" element={<StudentList />} />
         </Routes>
       </Router>
     </>

@@ -7,7 +7,6 @@ const Challenge = require("../models/Challenge");
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "root",
   database: "DBMS",
 });
 

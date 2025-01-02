@@ -9,13 +9,12 @@ exports.getContest = async (req, res) => {
   try {
     const student = await Student.findById(req.user.id);
     const faculty = await Faculty.findById(student.faculty);
-    console.log(student.faculty);
-    console.log(faculty);
+    const {type}=req.body;
     res
       .status(201)
       .json({
         message: "User registered successfully!",
-        contest: faculty?.contest,
+        contest: faculty?.contest.filter((c) => c.type === type),
       });
   } catch (err) {
     console.log(err);

@@ -21,7 +21,7 @@ const BotContainer = styled.div`
 `;
 
 const Header = styled.div`
-  background-color: #4caf50;
+  background-color:rgba(0, 94, 255, 0.82);
   color: white;
   padding: 15px;
   font-size: 18px;
@@ -71,7 +71,7 @@ const MessageText = styled.div`
 
 const UserAvatar = styled(FaUser)`
   font-size: 24px;
-  color: #4caf50;
+  color:rgb(0, 141, 241);
 `;
 
 const BotAvatar = styled(FaRobot)`
@@ -101,7 +101,7 @@ const Textarea = styled.textarea`
 
 const Button = styled.button`
   padding: 10px;
-  background-color: #4caf50;
+  background-color:rgb(0, 128, 255);
   color: white;
   border: none;
   border-radius: 6px;
@@ -110,7 +110,7 @@ const Button = styled.button`
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: #45a049;
+    background-color:rgb(0, 110, 255);
   }
 
   &:disabled {

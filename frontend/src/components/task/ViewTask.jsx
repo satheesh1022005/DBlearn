@@ -1,121 +1,70 @@
 import { useEffect, useState } from "react";
-import { viewTask } from "./taskService";
+import { setTaskStatus, viewTask } from "./taskService";
 import SQLPlayground from "../SQLPlayground/SQLPlayground";
+import './ViewTask.css'; // Import the CSS file for styles
 
 const ViewTask = () => {
     const [tasks, setTasks] = useState([]);
-    const [selectedTask, setSelectedTask] = useState(null);
-
+    const [selectedTask, setSelectedTask] = useState(0);
     useEffect(() => {
         const fetchTasks = async () => {
             try {
                 const fetchedTasks = await viewTask();
-                setTasks(fetchedTasks);
+                setTasks(fetchedTasks.tasks);
+                if(fetchedTasks) setSelectedTask(fetchedTasks?.tasks[0]);
+                console.log(fetchedTasks)
             } catch (error) {
                 console.error("Error fetching tasks:", error);
             }
         };
         fetchTasks();
     }, []);
-
+    console.log(selectedTask)
+    const handleTaskClick = async() => {
+        console.log(selectedTask)
+        try{
+            const setTask=await setTaskStatus(selectedTask?.task._id);
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
     return (
-        <div style={styles.container}>
-            <div style={styles.sidebar}>
-                <h3 style={styles.sidebarTitle}>Tasks</h3>
-                <ul style={styles.taskList}>
+        <div className="view-task-container">
+            <div className="sidebar-task">
+                <h3 className="sidebar-title">Tasks</h3>
+                <ul className="task-list">
                     {tasks?.map((task) => (
-                        <section>
-                            <li
-                            key={task.id}
-                            style={styles.taskItem}
+                        <li
+                            key={task?.task1?.id}
+                            className={`task-item ${selectedTask?.task1?.id === task?.task1?.id ? 'active' : ''}`}
                             onClick={() => setSelectedTask(task)}
                         >
-                            {task.title}
+                            {task?.task1?.title}
                         </li>
-                        
-                        </section>
-                        
                     ))}
                 </ul>
             </div>
-            <div style={styles.content}>
-                {selectedTask ? (
+            <div className="content task-content-style p-5">
+                {selectedTask?.task1 ? (
                     <>
-                        <h2 style={styles.taskTitle}>{selectedTask.title}</h2>
-                        <p style={styles.taskDescription}>{selectedTask.description}</p>
-                        <p style={styles.taskDate}>
-                            Created on: {new Date(selectedTask.createdAt).toLocaleDateString()}
+                        <h2 className="task-title">{selectedTask?.task1?.title}</h2>
+                        <div className={selectedTask?.task.status=="pending"?"pending":"completed"}>Status : {selectedTask?.task.status.toUpperCase()}</div>
+                        <p className="task-description">{selectedTask?.task1?.description}</p>
+                        <p className="task-date">
+                            Created on: {new Date(selectedTask?.task1?.createdAt).toLocaleDateString()}
                         </p>
-                        <SQLPlayground/>
+                        <div className="task-sql-playground py-5">
+                            <SQLPlayground />
+                        </div>
+                        <div className="mark" onClick={handleTaskClick}>Mark as Completed</div>
                     </>
                 ) : (
-                    <p style={styles.placeholder}>Select a task to view details</p>
+                    <p className="placeholder">Select a task to view details</p>
                 )}
             </div>
         </div>
     );
-};
-
-// Styling for the component
-const styles = {
-    container: {
-        display: 'flex',
-        height: '100vh',
-        fontFamily: 'Arial, sans-serif',
-    },
-    sidebar: {
-        width: '250px',
-        backgroundColor: '#f0f0f5',
-        padding: '20px',
-        boxShadow: '2px 0 5px rgba(0,0,0,0.1)',
-        overflowY: 'auto',
-    },
-    sidebarTitle: {
-        fontSize: '1.5rem',
-        color: '#333',
-        marginBottom: '10px',
-    },
-    taskList: {
-        listStyle: 'none',
-        padding: 0,
-    },
-    taskItem: {
-        padding: '10px',
-        cursor: 'pointer',
-        color: '#444',
-        borderRadius: '4px',
-        marginBottom: '5px',
-        transition: 'background-color 0.3s',
-    },
-    taskItemHovered: {
-        backgroundColor: '#e0e0eb',
-    },
-    content: {
-        flex: 1,
-        padding: '20px',
-        backgroundColor: '#ffffff',
-        overflowY: 'auto',
-    },
-    taskTitle: {
-        fontSize: '2rem',
-        color: '#333',
-    },
-    taskDescription: {
-        fontSize: '1.1rem',
-        color: '#555',
-        marginTop: '10px',
-    },
-    taskDate: {
-        fontSize: '0.9rem',
-        color: '#888',
-        marginTop: '20px',
-    },
-    placeholder: {
-        fontSize: '1.2rem',
-        color: '#888',
-        textAlign: 'center',
-        marginTop: '50px',
-    },
 };
 
 export default ViewTask;

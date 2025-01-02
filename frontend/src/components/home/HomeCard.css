@@ -1,0 +1,32 @@
+.home-card{
+    height: 10em;
+    border: 1px solid #007bff8c;
+    transition: all 0.5s ease-in-out;
+    border-radius: 0.5em;
+}
+.home-card a{
+    text-emphasis: none;
+    text-decoration: dotted;
+}
+.home-card img{
+    height: 5em;
+}
+.home-card h3{
+    font-size: 1.5em;
+    text-decoration: dashed;
+}
+.home-card:hover{
+    background-color: #007bff29;
+    color: #fff;
+}
+.college-faculty-page h1{
+
+    padding:1em 5em;
+    background-color: rgb(89, 180, 255);
+    color: white;
+    font-weight: bold;
+    border-bottom: 2px dashed rgb(0, 89, 255);
+}
+.college-faculty-list{
+    padding-inline: 7em;
+}

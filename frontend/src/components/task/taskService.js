@@ -52,14 +52,35 @@ export const viewTask = async () => {
   try {
     const token = localStorage.getItem("token");
     console.log(token);
-    const response = await axios.get(`${APIURL}task/getTasks`, {
+    const response = await axios.get(`${APIURL}api/getAll`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
     console.log(response.data);
-    return response.data.tasks;
+    return response.data;
   } catch (err) {
     console.log(err);
   }
 };
+
+export const setTaskStatus = async (id) => {
+  console.log(id);
+  try {
+    const token = localStorage.getItem("token");
+    console.log(token);
+    const response = await axios.post(`${APIURL}api/setTaskCompleted`,{
+      taskId:id
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response.data);
+    toast("Task Status Updated", { type: "success", autoClose: 2000 });
+    return true;    
+  } catch (err) {
+    console.log(err);
+    toast("Something went wrong", { type: "error", autoClose: 2000 });
+  }
+}

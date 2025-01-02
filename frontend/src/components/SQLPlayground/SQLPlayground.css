@@ -1,6 +1,16 @@
+.playground{
+  background-color:rgb(225, 244, 255);
+  padding:0.5em;
+  height: 100%;
+  border-radius: 0.5em;
+  border: 1px solid rgb(0, 136, 255);
+}
 .playground-container {
   display: flex;
-  height: 100vh;
+  background-color: rgb(230, 245, 255);
+  padding: 1.5em;
+  border-radius: 10px;
+  padding-bottom: none;
 }
 
 .compiler-section {
@@ -24,8 +34,21 @@
   font-size: 1rem;
   resize: vertical;
 }
-
-.button-group {
+.query-textarea {
+  width: 100%;
+  height: 260px;
+  margin-block: 1em;
+  padding: 10px;
+  font-size: 1rem;
+  resize: vertical;
+  background-color: rgba(142, 187, 224, 0.283);
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid rgb(131, 124, 160);
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+}
+.button-group { 
   display: flex;
   gap: 10px;
 }
@@ -40,8 +63,8 @@
 }
 
 button {
-  padding: 10px 15px;
-  background-color: #007bff;
+  padding: 10px 20px;
+  background-color: rgb(82, 111, 153);
   color: white;
   border: none;
   border-radius: 4px;
@@ -50,11 +73,13 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #012f5f;
 }
 
 h2 {
   margin-top: 20px;
+  font-size: 1.5em;
+  opacity: 0.8;
 }
 
 .history-list {
@@ -80,4 +105,23 @@ h2 {
 }
 .btn-expand {
   cursor: pointer;
+  font-size: 1em;
+}
+
+.result-table{
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  margin-block: 1em;
+  overflow-x: auto;
+}
+.result-table th,
+.result-table td {
+  padding:0.1em 0.5em;
+  text-align: left; 
+  border: 1px solid rgb(0, 132, 255); 
+}
+
+.playground button{
+  background-color: rgb(0, 123, 223);
 }

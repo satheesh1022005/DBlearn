@@ -129,13 +129,15 @@ function SQLPlayground() {
     Object.keys(result[0]).map(key => ({ Header: key, accessor: key })) : [];
   
   return (
-    <div className="playground-container">
+   <div className='playground'>
+     <div className="playground-container">
       <div className="compiler-section">
-        <h1>SQL Playground</h1>
+        <h2>SQL Playground</h2>
         <textarea
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Enter SQL query"
+          className='query-textarea'
           rows="4"
           cols="50"
         />
@@ -187,6 +189,7 @@ function SQLPlayground() {
       </div>
       }
     </div>
+   </div>
   );
 }
 

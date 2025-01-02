@@ -11,6 +11,7 @@ const facultySchema = new mongoose.Schema({
     {
       id: { type: String },
       name: { type: String },
+      type: { type: String },
       description: { type: String },
     },
   ],
