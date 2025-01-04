@@ -2,12 +2,14 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from crewai import Agent, Task, Process, Crew
 from langchain_google_genai import ChatGoogleGenerativeAI
+import os
 import json
+from dotenv import load_dotenv
+load_dotenv()
 
-api_key = "AIzaSyDUbXceYlMNQX-tZyu3jj7iFf2Pnlpr00k"
+api_key = os.getenv("API_KEY")
 app = Flask(__name__)
-CORS(app)
-
+CORS(app, resources={r"/*": {"origins": "*"}})
 # Define agent configurations for different bots
 def get_agent_for_type(bot_type):
     if bot_type == 'NLPtoSQL':
@@ -89,4 +91,4 @@ def process_input():
 
 
 if __name__ == '__main__':
-    app.run(debug=True,port=5000)
+    app.run()
